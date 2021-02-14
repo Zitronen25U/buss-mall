@@ -48,6 +48,7 @@ function renderAds(){
   let firstAdIndex = getRandomIndex();
   let secondAdIndex = getRandomIndex();
   let thirdAdIndex = getRandomIndex();
+
   while(firstAdIndex === secondAdIndex || secondAdIndex === thirdAdIndex || firstAdIndex === thirdAdIndex){
     secondAdIndex = getRandomIndex();
     thirdAdIndex = getRandomIndex();
@@ -70,7 +71,7 @@ function renderResults(){
   let adList = document.querySelector('ul');
   for (let i = 0; i < allAds.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${allAds[i].name} had ${allAds[i].views} votes, and was seen ${allAds[i].clicks} times`;
+    li.textContent = `${allAds[i].name} had ${allAds[i].clicks} votes, and was seen ${allAds[i].views} times`;
     adList.appendChild(li);
     console.log(renderResults);
   }

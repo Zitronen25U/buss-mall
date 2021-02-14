@@ -36,7 +36,6 @@ section{
   border: 3px solid black;
   margin: auto;
   margin-top: 5px;
-
 }
 
 img:hover{
@@ -48,10 +47,11 @@ div{
   margin: auto;
   text-align: center;
   padding: 5px;
-  border: 1px solid black;
+  border: 5px solid black;
   width: max-content;
   margin-top: 25px;
   margin-bottom: 25px;
+  font-size: 2em;;
 }
 
 div:hover{
@@ -59,7 +59,8 @@ div:hover{
 }
 
 ul{
+  margin-left: 10px;
+  font-size: 1.5em;
   
 }
-
 /* Foot */

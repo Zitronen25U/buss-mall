@@ -98,6 +98,7 @@ function handleClick(event){
   }
 }
 
+
 function handleButtonClick(event){
   if(totalClicks === clicksAllowed){
     renderResults();

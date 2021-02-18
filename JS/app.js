@@ -5,14 +5,12 @@ let clicksAllowed = 25;
 let allAds = [];
 let indexArray = [];
 let uniqueImageCount = 6;
-
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let imageThree = document.querySelector('section img:nth-child(3)');
 let myContainer = document.querySelector('section');
-let myButton = document.querySelector('div');
 
-function Newad(name, fileExtension = 'jpg'){
+function Newad(name, fileExtension = 'jpg') {
   this.name = name;
   this.src = `img/${name}.${fileExtension}`;
   this.views = 0;
@@ -40,17 +38,15 @@ new Newad('unicorn');
 new Newad('usb', 'gif');
 new Newad('water-can');
 
-function getRandomIndex(){
+function getRandomIndex() {
   return Math.floor(Math.random() * allAds.length);
 }
 
-
-function renderAds(){
-
-  while(indexArray.length < uniqueImageCount){
+function renderAds() {
+  while (indexArray.length < uniqueImageCount) {
     let randomIndex = getRandomIndex();
-    while(!indexArray.includes(randomIndex)){
-      indexArray.push(randomIndex);
+    while (!indexArray.includes(randomIndex)) {
+      indexArray.unshift(randomIndex);
     }
   }
   console.log(indexArray);
@@ -70,50 +66,74 @@ function renderAds(){
   imageThree.src = allAds[thirdAdIndex].src;
   imageThree.title = allAds[thirdAdIndex].name;
   allAds[thirdAdIndex].views++;
-
 }
 
-function renderResults(){
-  let adList = document.querySelector('ul');
-  for (let i = 0; i < allAds.length; i++){
-    let li = document.createElement('li');
-    li.textContent = `${allAds[i].name} had ${allAds[i].clicks} votes, and was seen ${allAds[i].views} times`;
-    adList.appendChild(li);
-    console.log(renderResults);
-  }
-}
-
-function handleClick(event){
-  if (event.target === myContainer){
+function handleClick(event) {
+  if (event.target === myContainer) {
     alert('Please click an image to take the survey');
   }
 
   totalClicks++;
   let adsClicked = event.target.title;
 
-  for (let i = 0; i < allAds.length; i++){
-    if(adsClicked === allAds[i].name){
+  for (let i = 0; i < allAds.length; i++) {
+    if (adsClicked === allAds[i].name) {
       allAds[i].clicks++;
     }
   }
-
   renderAds();
-  if (totalClicks === clicksAllowed){
+  if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
-    // console.log(renderAds);
   }
 }
 
 
-function handleButtonClick(event){
-  if(totalClicks === clicksAllowed){
-    renderResults();
-  }
-  if(totalClicks !== clicksAllowed){
-    alert('Sorry! You must take the survey 25 times!');
-  }
-}
 
 renderAds();
 myContainer.addEventListener('click', handleClick);
-myButton.addEventListener('click', handleButtonClick);
+var ctx = document.getElementById('myChart').getContext('2d');
+
+let adNames = [];
+let adViews = [];
+let adClicks = [];
+
+for (let i = 0; i < allAds.length; i++) {
+  adNames.push(allAds[i].name);
+  adViews.push(allAds[i].views);
+  adClicks.push(allAds[i].clicks);
+}
+
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: adNames,
+    datasets: [{
+      label: '# of Views',
+      data: adViews,
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    },
+    {
+      label: '# of Clicks',
+      data: adClicks,
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+
+
+

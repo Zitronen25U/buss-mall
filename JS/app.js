@@ -4,7 +4,7 @@ let totalClicks = 0;
 let clicksAllowed = 25;
 let allAds = [];
 let indexArray = [];
-let uniqueImageCount = 3;
+let uniqueImageCount = 6;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');

@@ -88,23 +88,9 @@ function handleClick(event) {
 }
 
 
+var myChart = new Chart (ctx, chartObject);
 
-renderAds();
-myContainer.addEventListener('click', handleClick);
-var ctx = document.getElementById('myChart').getContext('2d');
-
-let adNames = [];
-let adViews = [];
-let adClicks = [];
-
-for (let i = 0; i < allAds.length; i++) {
-  adNames.push(allAds[i].name);
-  adViews.push(allAds[i].views);
-  adClicks.push(allAds[i].clicks);
-}
-
-
-var myChart = new Chart(ctx, {
+let chartObject =  {
   type: 'bar',
   data: {
     labels: adNames,
@@ -132,8 +118,25 @@ var myChart = new Chart(ctx, {
       }]
     }
   }
-});
+};
 
 
+let adNames = [];
+let adViews = [];
+let adClicks = [];
+
+for (let i = 0; i < allAds.length; i++) {
+  adNames.push(allAds[i].name);
+  adViews.push(allAds[i].views);
+  adClicks.push(allAds[i].clicks);
+}
+
+
+
+
+
+renderAds();
+myContainer.addEventListener('click', handleClick);
+var ctx = document.getElementById('myChart').getContext('2d');
 
 

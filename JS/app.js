@@ -3,7 +3,8 @@
 let totalClicks = 0;
 let clicksAllowed = 25;
 let allAds = [];
-// let indexArray = [];
+let indexArray = [];
+let uniqueImageCount = 3;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
@@ -45,14 +46,18 @@ function getRandomIndex(){
 
 
 function renderAds(){
-  let firstAdIndex = getRandomIndex();
-  let secondAdIndex = getRandomIndex();
-  let thirdAdIndex = getRandomIndex();
 
-  while(firstAdIndex === secondAdIndex || secondAdIndex === thirdAdIndex || firstAdIndex === thirdAdIndex){
-    secondAdIndex = getRandomIndex();
-    thirdAdIndex = getRandomIndex();
+  while(indexArray.length < uniqueImageCount){
+    let randomIndex = getRandomIndex();
+    while(!indexArray.includes(randomIndex)){
+      indexArray.push(randomIndex);
+    }
   }
+  console.log(indexArray);
+
+  let firstAdIndex = indexArray.pop();
+  let secondAdIndex = indexArray.pop();
+  let thirdAdIndex = indexArray.pop();
 
   imageOne.src = allAds[firstAdIndex].src;
   imageOne.title = allAds[firstAdIndex].name;
@@ -65,6 +70,7 @@ function renderAds(){
   imageThree.src = allAds[thirdAdIndex].src;
   imageThree.title = allAds[thirdAdIndex].name;
   allAds[thirdAdIndex].views++;
+
 }
 
 function renderResults(){

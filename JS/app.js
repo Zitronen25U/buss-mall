@@ -67,15 +67,15 @@ function renderAds() {
   imageThree.title = allAds[thirdAdIndex].name;
   allAds[thirdAdIndex].views++;
 }
+renderAds();
+
 
 function handleClick(event) {
   if (event.target === myContainer) {
     alert('Please click an image to take the survey');
   }
-
   totalClicks++;
   let adsClicked = event.target.title;
-
   for (let i = 0; i < allAds.length; i++) {
     if (adsClicked === allAds[i].name) {
       allAds[i].clicks++;
@@ -84,57 +84,54 @@ function handleClick(event) {
   renderAds();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
-    chartObject();
+    renderChart();
   }
 }
 
+function renderChart() {
+  let adNames = [];
+  let adViews = [];
+  let adClicks = [];
 
-let adNames = [];
-let adViews = [];
-let adClicks = [];
+  for (let i = 0; i < allAds.length; i++) {
+    adNames.push(allAds[i].name);
+    adViews.push(allAds[i].views);
+    adClicks.push(allAds[i].clicks);
+  }
 
-
-for (let i = 0; i < allAds.length; i++) {
-  adNames.push(allAds[i].name);
-  adViews.push(allAds[i].views);
-  adClicks.push(allAds[i].clicks);
-}
-
-var myChart = new Chart (ctx, chartObject);
-
-let chartObject ={
-  type: 'bar',
-  data: {
-    labels: adNames,
-    datasets: [{
-      label: '# of Views',
-      data: adViews,
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1
-    },
-    {
-      label: '# of Clicks',
-      data: adClicks,
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
+  let chartObject = {
+    type: 'bar',
+    data: {
+      labels: adNames,
+      datasets: [{
+        label: '# of Views',
+        data: adViews,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      },
+      {
+        label: '# of Clicks',
+        data: adClicks,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-};
-
-
-renderAds();
-myContainer.addEventListener('click', handleClick);
+  };
+  var myChart = new Chart(ctx, chartObject);
+}
 var ctx = document.getElementById('myChart').getContext('2d');
+myContainer.addEventListener('click', handleClick);
+
 
 

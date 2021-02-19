@@ -84,13 +84,25 @@ function handleClick(event) {
   renderAds();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
+    chartObject();
   }
 }
 
 
+let adNames = [];
+let adViews = [];
+let adClicks = [];
+
+
+for (let i = 0; i < allAds.length; i++) {
+  adNames.push(allAds[i].name);
+  adViews.push(allAds[i].views);
+  adClicks.push(allAds[i].clicks);
+}
+
 var myChart = new Chart (ctx, chartObject);
 
-let chartObject =  {
+let chartObject ={
   type: 'bar',
   data: {
     labels: adNames,
@@ -119,20 +131,6 @@ let chartObject =  {
     }
   }
 };
-
-
-let adNames = [];
-let adViews = [];
-let adClicks = [];
-
-for (let i = 0; i < allAds.length; i++) {
-  adNames.push(allAds[i].name);
-  adViews.push(allAds[i].views);
-  adClicks.push(allAds[i].clicks);
-}
-
-
-
 
 
 renderAds();

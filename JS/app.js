@@ -67,8 +67,9 @@ function renderAds() {
   imageThree.title = allAds[thirdAdIndex].name;
   allAds[thirdAdIndex].views++;
 }
-
 renderAds();
+
+
 function handleClick(event) {
   if (event.target === myContainer) {
     alert('Please click an image to take the survey');

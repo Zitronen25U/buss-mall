@@ -84,18 +84,15 @@ function handleClick(event) {
   renderAds();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
+    chartObject();
   }
 }
 
 
-
-renderAds();
-myContainer.addEventListener('click', handleClick);
-var ctx = document.getElementById('myChart').getContext('2d');
-
 let adNames = [];
 let adViews = [];
 let adClicks = [];
+
 
 for (let i = 0; i < allAds.length; i++) {
   adNames.push(allAds[i].name);
@@ -103,8 +100,9 @@ for (let i = 0; i < allAds.length; i++) {
   adClicks.push(allAds[i].clicks);
 }
 
+var myChart = new Chart (ctx, chartObject);
 
-var myChart = new Chart(ctx, {
+let chartObject ={
   type: 'bar',
   data: {
     labels: adNames,
@@ -132,8 +130,11 @@ var myChart = new Chart(ctx, {
       }]
     }
   }
-});
+};
 
 
+renderAds();
+myContainer.addEventListener('click', handleClick);
+var ctx = document.getElementById('myChart').getContext('2d');
 
 
